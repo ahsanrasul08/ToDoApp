@@ -1,0 +1,88 @@
+:root{
+  --block-element-inline-gap:0.5rem;
+}
+
+
+
+
+.wrapper{
+  background-color:rgba(0, 0, 0, 0.196);
+  padding: 1rem;
+}
+
+
+.TodoApp{
+  display: flex;
+  flex-direction: column;
+
+
+  gap:1rem;
+
+}
+
+
+@media screen and (max-width:500px) {
+  .wrapper{
+    max-width: 100%;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color:rgba(0, 0, 0, 0.196);
+    padding-block:2rem ;
+  }
+  .TodoApp{
+
+
+  }
+}
+
+
+#todo__form{
+  display: flex;
+  gap:var(--block-element-inline-gap);
+}
+
+#todo__queues{
+  display: flex;
+  gap:var(--block-element-inline-gap);
+  justify-content: center;
+
+}
+
+.todo__item__list{
+  display: flex;
+  flex-direction: column;
+  
+  text-align: left;
+  padding: 0;
+  gap:var(--block-element-inline-gap);
+
+}
+.todo__item{
+  padding: 0.5rem 0.8rem;
+
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+ 
+}
+.todo__item:hover{
+  border: 2px solid rgba(110, 111, 110, 0.33);
+  border-radius: 8px;
+}
+
+
+.todo__item__task{
+  display: flex;
+  gap:var(--block-element-inline-gap);
+}
+
+.todo__item__btnControls{
+  display: flex;
+  gap:var(--block-element-inline-gap);
+}

@@ -9,34 +9,50 @@ import { useState } from 'react'
 
 function App() {
 
+  
+
   const [taskList,setTask]=useState([]);
 
-  function DeletToDo(event){
-    console.log("delete todo")
-    let TodoItemId=event.target.closest("li").id;
 
+  function DeletToDo(id){
+    console.log(`id :${id}`)
 
     let updatedTaskList=taskList.filter((task)=>{
-      if(task.id!=TodoItemId){
-        console.log(TodoItemId);
-        console.log(task.id);
+      if(task.id!=id){
         return task;
       }
     });
-
-
     setTask(updatedTaskList);
-    console.log(updatedTaskList);
   }
 
-  function addTodo(event){
-    event.preventDefault();
-    console.log("add todo")
+  function addTodo(taskName){
+    console.log(`add todo ${taskName}`);
+    console.log(`Task List : ${taskList}`)
+ 
+    let newTask={id:crypto.randomUUID(), taskName, completed:false, edit:false}
 
-    let taskName=event.target.form[0].value;
-    let updatedTaskList=taskList.slice()
-    updatedTaskList.push({id:updatedTaskList.length+1, title:taskName, complete:false, key:updatedTaskList.length+1 });
-    console.log(updatedTaskList)
+    setTask([...taskList,newTask]);
+  }
+
+  function completeToDo(id){
+    console.log(id)
+     let updatedTaskList=taskList.map((task)=>{
+      if(task.id==id){
+       task.completed = !task.completed
+       console.log("test");
+      }
+      return task;
+    })
+    setTask(updatedTaskList);
+  }
+
+  function editToDo(id,name){
+    let updatedTaskList=taskList.map((task)=>{
+      if(task.id==id){
+       task.taskName = name
+      }
+      return task;
+    })
     setTask(updatedTaskList);
   }
 
@@ -48,8 +64,11 @@ return (
     <TaskQueues/>
 
     <ul className='todo__item__list'>
-      <TodoItem taskList={taskList} DeletToDo={DeletToDo}/>
-
+      <TodoItem 
+      taskList={taskList} 
+      DeletToDo={DeletToDo} 
+      completeToDo={completeToDo}
+      editToDo={editToDo} />
     </ul>
   </div>
 </div>

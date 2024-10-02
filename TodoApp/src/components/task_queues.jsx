@@ -1,9 +1,12 @@
-export default function TaskQueues(){
-    return (<>
-    <div id="todo__queues">
-      <button className="todo__queue__btn todo__queue__active">Active</button>
-
-      <button className="todo__queue__btn todo__queue__completed">Completed</button>
-    </div>
-    </>)
+function TaskQueues(){
+  return (<>
+          <button type="button" className="btn toggle-btn" aria-pressed="true">
+          <span className="visually-hidden">Show </span>
+          <span>all</span>
+          <span className="visually-hidden"> tasks</span>
+        </button>
+        </>)
 }
+
+export default TaskQueues;
+

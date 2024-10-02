@@ -1,79 +1,75 @@
+import Form from "./components/form";
+import Todo from "./components/todo_item";
+import TaskQueues from "./components/task_queues";
+import { useState } from "react";
 
-import TaskQueues from './components/task_queues';
-import TodoItem from './components/todo_item';
-import TodoForm from './components/form';
-import './App.css';
-import { useState } from 'react'
+function App(props) {
 
+  const [tasks,setTask]=useState([])
 
+  console.log(`current tasks:`)
+  console.log(tasks);
 
-function App() {
-
+  const taskList = tasks?.map((task) => (
+    <Todo 
+    id={task.id} 
+    name={task.name} 
+    completed={task.completed} 
+    key={task.id} 
+    deleteTodo={deleteTodo}
+    completeTodo={completeTodo}
+    />
+  ));
   
 
-  const [taskList,setTask]=useState([]);
+  function addTask(taskName){
+    let newTask={id:crypto.randomUUID(), name:taskName, completed:false }
+    setTask([...tasks,newTask]);
+  }
 
 
-  function DeletToDo(id){
-    console.log(`id :${id}`)
-
-    let updatedTaskList=taskList.filter((task)=>{
-      if(task.id!=id){
+  function deleteTodo(id){
+    let updateTasks = tasks.filter((task)=>{
+      if(task.id != id){
         return task;
       }
     });
-    setTask(updatedTaskList);
+    setTask(updateTasks); 
   }
 
-  function addTodo(taskName){
-    console.log(`add todo ${taskName}`);
-    console.log(`Task List : ${taskList}`)
- 
-    let newTask={id:crypto.randomUUID(), taskName, completed:false, edit:false}
-
-    setTask([...taskList,newTask]);
-  }
-
-  function completeToDo(id){
-    console.log(id)
-     let updatedTaskList=taskList.map((task)=>{
-      if(task.id==id){
-       task.completed = !task.completed
-       console.log("test");
+  function completeTodo(id){
+    let updateTasks = tasks.map((task)=>{
+      if(task.id == id){
+        task.completed != task.completed
       }
-      return task;
-    })
-    setTask(updatedTaskList);
+    });
+    setTask(updateTasks);
   }
 
-  function editToDo(id,name){
-    let updatedTaskList=taskList.map((task)=>{
-      if(task.id==id){
-       task.taskName = name
-      }
-      return task;
-    })
-    setTask(updatedTaskList);
-  }
+  return (
+    <div className="todoapp stack-large">
+      <h1>TodoMatic</h1>
+      <Form addTask={addTask}/>
 
-return (
-<>
-<div className='wrapper'>
-  <div className='TodoApp'>
-    <TodoForm addTodo={addTodo} />
-    <TaskQueues/>
+      <div className="filters btn-group stack-exception">
+        <TaskQueues />
+        <TaskQueues />
+        <TaskQueues />
 
-    <ul className='todo__item__list'>
-      <TodoItem 
-      taskList={taskList} 
-      DeletToDo={DeletToDo} 
-      completeToDo={completeToDo}
-      editToDo={editToDo} />
-    </ul>
-  </div>
-</div>
-</>
-)
+      </div>
+      <h2 id="list-heading">3 tasks remaining</h2>
+  
+      <ul
+        role="list"
+        className="todo-list stack-large stack-exception"
+        aria-labelledby="list-heading">
+         {taskList}
+      
+      </ul>
+
+
+    </div>
+  );
 }
 
-export default App
+export default App;

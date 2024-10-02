@@ -1,25 +1,41 @@
 import { useState } from 'react'
 
-export default function TodoForm(props) {
-  const [name, setName] = useState("")
+function Form(props){
 
-  function handleChange(event) {
-    let taskName = event.target.value;
-    setName(taskName);
+  const [name,setName]=useState("");
+  
+  function handleChange(event){
+    setName(event.target.value)
   }
 
-  function handleSubmit(event) {
+
+  function handleSubmit(event){
     event.preventDefault();
-    props.addTodo(name);
-    setName("");
+    props.addTask(name);
+    setName("")
   }
 
-  return (
-    <>
-      <form id="todo__form" onSubmit={handleSubmit}>
-        <input onChange={handleChange} value={name} id="todo__input" type="text" placeholder='Type your task item' />
-        <button id="todo__submit" type='submit' >Submit</button>
+  return (<>
+        <form onSubmit={handleSubmit}>
+        <h2 className="label-wrapper">
+          <label htmlFor="new-todo-input" className="label__lg">
+            What needs to be done?
+          </label>
+        </h2>
+        <input
+          type="text"
+          id="new-todo-input"
+          className="input input__lg"
+          name="text"
+          autoComplete="off"
+          onChange={handleChange}
+          value={name}
+        />
+        <button type="submit" className="btn btn__primary btn__lg">
+          Add
+        </button>
       </form>
-    </>
-  )
+  </>)
 }
+
+export default Form

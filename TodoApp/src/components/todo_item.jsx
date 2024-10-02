@@ -1,30 +1,24 @@
-import { useState } from 'react'
+function Todo(props) {
 
-
-export default function TodoItem(props) {
-
-    let TodoItems = props.taskList?.map((task) => {
- 
-        return <li id={task.id} key={task.id} className='todo__item'>
-            <div className='todo__item__task'>
-                <input className='todo__checkbox'
-                    type="checkbox"
-                    onChange={() => { props.completeToDo(task.id) }}
-                    checked={task.complete}
-                />
-                <p>{task.taskName}</p>
-            </div>
-            <div className='todo__item__btnControls'>
-                <button onClick={() => { props.editToDo(task.id) }}>Delete</button>
-                <button onClick={() => { props.DeletToDo(task.id) }}>Delete</button>
-            </div>
-        </li>
-    })
     return (
-        <>
-            {TodoItems}
-        </>
-    )
-}
-
-
+      <li className="todo stack-small" key={props.id}>
+        <div className="c-cb">
+          <input id={props.id} type="checkbox" defaultChecked={props.completed} onChange={()=>{props.completeTodo(props.id)}} />
+          <label className="todo-label" htmlFor={props.id}>
+            {props.name}
+          </label>
+        </div>
+        <div className="btn-group">
+          <button type="button" className="btn">
+            Edit <span className="visually-hidden">Eat</span>
+          </button>
+          <button onClick={()=>{props.deleteTodo(props.id)}} type="button" className="btn btn__danger">
+            Delete <span className="visually-hidden">Eat</span>
+          </button>
+        </div>
+      </li>
+    );
+  }
+  
+  export default Todo;
+  

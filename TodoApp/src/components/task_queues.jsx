@@ -1,8 +1,23 @@
-function TaskQueues(){
+import { useState } from "react";
+
+function TaskQueues(props){
+
+  const [activeQueue,changeActiveQueue] = useState([])
+
+  function handleQueueChange(id,status){
+    props.changeQueue(id,status)
+  }
+
   return (<>
-          <button type="button" className="btn toggle-btn" aria-pressed="true">
+          <button
+          key={props.id}
+           id={props.id}
+          aria-pressed={props.activeStatus} type="button" 
+          className="btn toggle-btn"         
+          onClick={()=>{handleQueueChange(props.id,props.activeStatus)}}
+          >
           <span className="visually-hidden">Show </span>
-          <span>all</span>
+          <span>{props.queueName}</span>
           <span className="visually-hidden"> tasks</span>
         </button>
         </>)
@@ -10,3 +25,4 @@ function TaskQueues(){
 
 export default TaskQueues;
 
+//onClick={() => {props.changeQueue(props.queueName,props.activeStatus)}}
